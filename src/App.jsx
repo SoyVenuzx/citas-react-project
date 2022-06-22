@@ -10,7 +10,7 @@ export const App = () => {
 		<div className='container mt-10 mx-auto'>
 			<Header />
 			<div className='mt-10 px-5 md:flex gap-5'>
-				<Formulario />
+				<Formulario setPacientes={setPacientes} />
 				<ListadoPacientes />
 			</div>
 		</div>
