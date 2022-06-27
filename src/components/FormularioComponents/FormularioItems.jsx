@@ -1,13 +1,14 @@
-import { useState } from "react";
-import { FormInputs } from "./FormInputs";
+import { useState } from 'react';
+import { FormInputs } from './FormInputs';
+import { FormularioAlert } from './formularioAlert';
 
-export const FormularioItems = () => {
+export const FormularioItems = ({ pacientes, setPacientes }) => {
 	// ! Hooks
-	const [nombre, setNombre] = useState("");
-	const [propietario, setPropietario] = useState("");
-	const [email, setEmail] = useState("");
-	const [fecha, setFecha] = useState("");
-	const [sintomas, setSintomas] = useState("");
+	const [nombre, setNombre] = useState('');
+	const [propietario, setPropietario] = useState('');
+	const [email, setEmail] = useState('');
+	const [fecha, setFecha] = useState('');
+	const [sintomas, setSintomas] = useState('');
 
 	const [error, setError] = useState(false);
 	const [send, setSend] = useState(false);
@@ -16,7 +17,7 @@ export const FormularioItems = () => {
 		e.preventDefault();
 
 		// Validación del formulario
-		if ([nombre, propietario, email, fecha, sintomas].includes("")) {
+		if ([nombre, propietario, email, fecha, sintomas].includes('')) {
 			setError(!error);
 
 			setTimeout(() => {
@@ -29,30 +30,33 @@ export const FormularioItems = () => {
 				setSend(false);
 			}, 2500);
 		}
+
+		const objetoPaciente = {
+			nombre,
+			propietario,
+			email,
+			fecha,
+			sintomas,
+		};
+
+		// ! Guardando los valores de los pacientes
+		if (!send) setPacientes([...pacientes, objetoPaciente]);
+
+		// ! Reiniciando los valores de los inputs
+		setNombre('');
+		setPropietario('');
+		setEmail('');
+		setFecha('');
+		setSintomas('');
 	};
 
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className='flex flex-col gap-6 bg-white shadow-md rounded-md py-8 px-5 mt-10'
+			className='flex flex-col gap-6 px-5 py-8 mt-10 bg-white rounded-md shadow-md'
 			action=''
 		>
-			{true && (
-				<div
-					className={
-						error
-							? "block w-full p-3 rounded-lg bg-red-800 transition-all text-white"
-							: send &&
-							  "w-full p-3 rounded-lg bg-green-600 transition-all text-white"
-					}
-				>
-					<p className='text-md font-black text-center uppercase'>
-						{error
-							? "Todos los campos son obligatorios"
-							: send && "Datos enviados correctamente"}
-					</p>
-				</div>
-			)}
+			{true && <FormularioAlert error={error} send={send} />}
 
 			<FormInputs
 				idForm='mascota'
@@ -95,14 +99,14 @@ export const FormularioItems = () => {
 			<div>
 				<label
 					id='sintomas'
-					className='block mb-3 text-sm font-bold uppercase text-gray-700'
+					className='block mb-3 text-sm font-bold text-gray-700 uppercase'
 				>
 					Síntomas
 				</label>
 				<textarea
-					id={"sintomas"}
-					placeholder={"Describe los Síntomas"}
-					className='resize-none w-full py-3 px-2 text-gray-700 placeholder:text-sm border-2 focus:outline-none focus:ring-0 focus:border-indigo-600 transition placeholder-gray-400 rounded-md appearance-none bg-transparent'
+					id={'sintomas'}
+					placeholder={'Describe los Síntomas'}
+					className='w-full px-2 py-3 text-gray-700 placeholder-gray-400 transition bg-transparent border-2 rounded-md appearance-none resize-none placeholder:text-sm focus:outline-none focus:ring-0 focus:border-indigo-600'
 					// ! Hook
 					value={sintomas}
 					onChange={(e) => setSintomas(e.target.value)}
@@ -111,8 +115,8 @@ export const FormularioItems = () => {
 
 			<input
 				type='submit'
-				className='bg-indigo-600 w-full text-white uppercase font-bold text-sm py-3 cursor-pointer rounded-sm hover:bg-indigo-800 transition-colors'
-				value={"Agregar paciente"}
+				className='w-full py-3 text-sm font-bold text-white uppercase transition-colors bg-indigo-600 rounded-sm cursor-pointer hover:bg-indigo-800'
+				value={'Agregar paciente'}
 			/>
 		</form>
 	);

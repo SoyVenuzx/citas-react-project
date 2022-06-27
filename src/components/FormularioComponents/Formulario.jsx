@@ -1,19 +1,19 @@
-import { FormularioItems } from "./FormularioItems";
-import { useState, useEffect } from "react";
+import { FormularioItems } from './FormularioItems';
+import { useState, useEffect } from 'react';
 
-export const Formulario = () => {
+export const Formulario = ({ pacientes, setPacientes }) => {
 	return (
-		<div className='md:w-1/2 lg:w-2/5 mb-10'>
-			<h2 className='font-black text-2xl text-center'>Seguimiento Pacientes</h2>
+		<div className='mb-10 md:w-1/2 lg:w-2/5'>
+			<h2 className='text-2xl font-black text-center'>Seguimiento Pacientes</h2>
 
-			<p className='text-sm mt-4 text-center'>
-				Añade Pacientes y {""}
-				<span className='text-indigo-600 cursor-pointer hover:underline font-bold'>
+			<p className='mt-4 text-sm text-center'>
+				Añade Pacientes y {''}
+				<span className='font-bold text-indigo-600 cursor-pointer hover:underline'>
 					Administralos
 				</span>
 			</p>
 
-			<FormularioItems />
+			<FormularioItems pacientes={pacientes} setPacientes={setPacientes} />
 		</div>
 	);
 };
