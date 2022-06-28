@@ -1,23 +1,30 @@
-import { useState } from 'react';
-import { FormInputs } from './FormInputs';
-import { FormularioAlert } from './formularioAlert';
+import { useState } from "react";
+import { FormInputs } from "./FormInputs";
+import { FormularioAlert } from "./formularioAlert";
 
 export const FormularioItems = ({ pacientes, setPacientes }) => {
 	// ! Hooks
-	const [nombre, setNombre] = useState('');
-	const [propietario, setPropietario] = useState('');
-	const [email, setEmail] = useState('');
-	const [fecha, setFecha] = useState('');
-	const [sintomas, setSintomas] = useState('');
+	const [nombre, setNombre] = useState("");
+	const [propietario, setPropietario] = useState("");
+	const [email, setEmail] = useState("");
+	const [fecha, setFecha] = useState("");
+	const [sintomas, setSintomas] = useState("");
 
 	const [error, setError] = useState(false);
 	const [send, setSend] = useState(false);
+
+	const generarId = () => {
+		const random = Math.random().toString(36).substr(2);
+		const date = Date.now().toString(36);
+
+		return date + random;
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		// Validación del formulario
-		if ([nombre, propietario, email, fecha, sintomas].includes('')) {
+		if ([nombre, propietario, email, fecha, sintomas].includes("")) {
 			setError(!error);
 
 			setTimeout(() => {
@@ -37,17 +44,18 @@ export const FormularioItems = ({ pacientes, setPacientes }) => {
 			email,
 			fecha,
 			sintomas,
+			id: generarId(),
 		};
 
 		// ! Guardando los valores de los pacientes
 		if (!send) setPacientes([...pacientes, objetoPaciente]);
 
 		// ! Reiniciando los valores de los inputs
-		setNombre('');
-		setPropietario('');
-		setEmail('');
-		setFecha('');
-		setSintomas('');
+		setNombre("");
+		setPropietario("");
+		setEmail("");
+		setFecha("");
+		setSintomas("");
 	};
 
 	return (
@@ -104,8 +112,8 @@ export const FormularioItems = ({ pacientes, setPacientes }) => {
 					Síntomas
 				</label>
 				<textarea
-					id={'sintomas'}
-					placeholder={'Describe los Síntomas'}
+					id={"sintomas"}
+					placeholder={"Describe los Síntomas"}
 					className='w-full px-2 py-3 text-gray-700 placeholder-gray-400 transition bg-transparent border-2 rounded-md appearance-none resize-none placeholder:text-sm focus:outline-none focus:ring-0 focus:border-indigo-600'
 					// ! Hook
 					value={sintomas}
@@ -116,7 +124,7 @@ export const FormularioItems = ({ pacientes, setPacientes }) => {
 			<input
 				type='submit'
 				className='w-full py-3 text-sm font-bold text-white uppercase transition-colors bg-indigo-600 rounded-sm cursor-pointer hover:bg-indigo-800'
-				value={'Agregar paciente'}
+				value={"Agregar paciente"}
 			/>
 		</form>
 	);

@@ -1,7 +1,7 @@
 export const Header = () => {
 	return (
 		<>
-			<h1 className='font-black text-3xl text-center md:w-2/3 mx-auto'>
+			<h1 className='mx-auto text-4xl font-black text-center md:w-2/3'>
 				Seguimiento Pacientes {""}
 				<span className='text-indigo-600'>Veterinaria</span>
 			</h1>
