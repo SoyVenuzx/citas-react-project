@@ -1,6 +1,7 @@
 import { PacientesInfo } from './PacientesInfo';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
 
 export const Paciente = ({ infoPaciente, setPaciente, eliminarPaciente }) => {
 	const { nombre, propietario, email, fecha, sintomas, id } = infoPaciente;
@@ -8,6 +9,7 @@ export const Paciente = ({ infoPaciente, setPaciente, eliminarPaciente }) => {
 	const handleEliminar = () => {
 		toast.error('🦄 ¡Estás eliminando un paciente!', {
 			position: 'top-right',
+			// autoClose: 1200,
 			autoClose: false,
 			hideProgressBar: false,
 			closeOnClick: true,
@@ -47,7 +49,7 @@ export const Paciente = ({ infoPaciente, setPaciente, eliminarPaciente }) => {
 				onClick={() => {
 					setTimeout(() => {
 						eliminarPaciente(id);
-					}, 1000);
+					}, 600);
 				}}
 			/>
 		</div>
